@@ -40,6 +40,8 @@ services:
       GAS_PRICE_ORACLE_LAYER_TWO_HTTP_URL: http://l2geth:8545
       # Default hardhat account 5
       GAS_PRICE_ORACLE_PRIVATE_KEY: '0x176c19817fd36281d97f8b10c5debb45a24af3200aada2ad6e6c681ebf0f093e'
+      GAS_PRICE_ORACLE_ENABLE_L2_GAS_PRICE: 'true'
+      GAS_PRICE_ORACLE_ENABLE_L1_BASE_FEE: 'true'
 
   verifier2:
     depends_on:
