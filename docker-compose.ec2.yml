@@ -20,7 +20,7 @@ services:
     image: ethereumbitnetwork/batch-submitter-service:${DOCKER_TAG_BATCH_SUBMITTER_SERVICE:-latest}
     entrypoint: ./batch-submitter.sh
     env_file:
-      - ./haenvs/batch-submitter.env
+      - ./haenvs/ec2/batch-submitter.env
     environment:
       L1_ETH_RPC: https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp
       L2_ETH_RPC: http://l2geth:8545
