@@ -1,0 +1,31 @@
+version: '3.4'
+
+
+x-healthcheck: &healthcheck
+  test: [ "CMD", "curl", "-sf", "http://localhost:8545" ]
+  interval: 5s
+  timeout: 5s
+  retries: 3
+  start_period: 30s
+
+services:
+  batch_submitter:
+    depends_on:
+      - deployer
+      - l2geth
+    restart: on-failure
+    build:
+      context: ..
+      dockerfile: ./batch-submitter/Dockerfile
+    image: ethereumbitnetwork/batch-submitter-service:${DOCKER_TAG_BATCH_SUBMITTER_SERVICE:-latest}
+    entrypoint: ./batch-submitter.sh
+    env_file:
+      - ./haenvs/batch-submitter.env
+    environment:
+      L1_ETH_RPC: https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp
+      L2_ETH_RPC: http://l2geth:8545
+      URL: http://deployer:8081/addresses.json
+      BATCH_SUBMITTER_SEQUENCER_PRIVATE_KEY: '0xe4bf8c09fc7bb5c3eb932260b9fcf0f2a3fecb61512b0e979afb4ce1187bfe70'
+      BATCH_SUBMITTER_PROPOSER_PRIVATE_KEY: '0xdb6e136cfae18bf4c4539a010380dba7bfea29a02be8fc27a40af58925cc6cff'
+      BATCH_SUBMITTER_SEQUENCER_BATCH_TYPE: ${BATCH_SUBMITTER_SEQUENCER_BATCH_TYPE:-zlib}
+
