@@ -29,6 +29,35 @@ services:
       <<: *healthcheck
       test: [ "CMD", "curl", "-sf", "http://localhost:8082" ]
 
+  l2geth_slave:
+    depends_on:
+      - deployer
+      - dtl
+      - l2geth
+    build:
+      context: ..
+      dockerfile: ./l2geth/Dockerfile
+    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    entrypoint: sh ./geth.sh
+    restart: on-failure
+    env_file:
+      - ./haenvs/az1/rpc1/geth_rpc.env
+    volumes:
+      - ./data/l2geth_slave:/root/.ethereum/geth/
+    environment:
+      ETH1_HTTP: https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp
+      SEQUENCER_CLIENT_HTTP: http://l2geth:8545
+      ROLLUP_STATE_DUMP_PATH: http://deployer2:8081/state-dump.latest.json
+      ROLLUP_CLIENT_HTTP: http://dtl:7878
+      ROLLUP_BACKEND: 'l2'
+      ETH1_CTC_DEPLOYMENT_HEIGHT: 8
+      RETRIES: 60
+      ROLLUP_VERIFIER_ENABLE: 'true'
+    ports:
+      - ${VERIFIER_HTTP_PORT:-12547}:8545
+      - ${VERIFIER_WS_PORT:-12548}:8546
+
+
   gas_oracle_2:
     build:
       context: ..
@@ -167,7 +196,7 @@ services:
       ROLLUP_VERIFIER_ENABLE: 'true'
     ports:
       - ${VERIFIER_HTTP_PORT:-11547}:8545
-      - ${VERIFIER_WS_PORT:-12548}:8546
+      - ${VERIFIER_WS_PORT:-11548}:8546
 
 
 
