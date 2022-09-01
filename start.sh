@@ -7,4 +7,4 @@ cp -r docker-compose.az0.yml docker-compose.az1.yml docker-compose.ec2.yml bitne
 
 cd bitnetwork/ops/
 
-docker-compose -f docker-compose.az0.yml docker-compose.az1.yml docker-compose.ec2.yml up
+docker-compose -f docker-compose.az0.yml -f docker-compose.az1.yml -f  docker-compose.ec2.yml up
