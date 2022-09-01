@@ -164,8 +164,8 @@ services:
       RETRIES: 60
       ROLLUP_VERIFIER_ENABLE: 'true'
     ports:
-      - ${VERIFIER_HTTP_PORT:-10547}:8545
-      - ${VERIFIER_WS_PORT:-10548}:8546
+      - ${VERIFIER_HTTP_PORT:-11547}:8545
+      - ${VERIFIER_WS_PORT:-12548}:8546
 
 
 
@@ -194,4 +194,4 @@ services:
       DATA_TRANSPORT_LAYER__SYNC_FROM_L2: 'true'
       DATA_TRANSPORT_LAYER__SYNC_FROM_L1: 'false'
     ports:
-      - ${DTL_PORT:-8878}:7878
+      - ${DTL_PORT:-9878}:7878
