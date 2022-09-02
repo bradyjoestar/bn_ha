@@ -6,6 +6,8 @@ cp -r haenvs bitnetwork/ops/
 cp -r docker-compose.az0.yml  bitnetwork/ops/
 cp -r docker-compose.az1.yml  bitnetwork/ops/
 cp -r docker-compose.ec2.yml  bitnetwork/ops/
+cp -r docker-compose-master-slave-change.yml up bitnetwork/ops/
+cp -r master_slave_change.sh bitnetwork/ops/
 
 cd bitnetwork/ops/
 
