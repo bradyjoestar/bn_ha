@@ -1,10 +1,12 @@
 version: '3.4'
 
+x-base: &base
+  restart: unless-stopped
+  networks:
+    bitnetwork: {}
+
 services:
   l2geth:
-    depends_on:
-      - deployer
-      - dtl
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile

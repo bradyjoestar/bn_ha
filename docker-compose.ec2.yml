@@ -8,6 +8,11 @@ x-healthcheck: &healthcheck
   retries: 3
   start_period: 30s
 
+x-base: &base
+  restart: unless-stopped
+  networks:
+    bitnetwork: {}
+
 services:
   batch_submitter:
     depends_on:
