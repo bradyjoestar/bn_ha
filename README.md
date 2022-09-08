@@ -1,6 +1,6 @@
 # target:
 - high availablity
-- standby 
+- master-slave for l2geth
 
 
 # zone
