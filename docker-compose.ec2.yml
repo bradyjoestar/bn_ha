@@ -22,7 +22,7 @@ services:
     build:
       context: ..
       dockerfile: ./batch-submitter/Dockerfile
-    image: ethereumbitnetwork/batch-submitter-service:${DOCKER_TAG_BATCH_SUBMITTER_SERVICE:-latest}
+    image: mantlenetworkio/batch-submitter-service:${DOCKER_TAG_BATCH_SUBMITTER_SERVICE:-latest}
     entrypoint: ./batch-submitter.sh
     env_file:
       - ./haenvs/ec2/batch-submitter.env

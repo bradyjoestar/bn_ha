@@ -22,13 +22,14 @@ services:
       context: ..
       dockerfile: ./ops/docker/Dockerfile.packages
       target: deployer
-    image: ethereumbitnetwork/deployer:${DOCKER_TAG_DEPLOYER:-latest}
+    image: mantlenetworkio/deployer:${DOCKER_TAG_DEPLOYER:-latest}
     entrypoint: ./deployer.sh
     restart: on-failure
     environment:
       # Env vars for the deployment script.
       CONTRACTS_RPC_URL: https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp
       CONTRACTS_TARGET_NETWORK: 'goerli-qa'
+      L1_BIT_ADDRESS: '0x59b670e9fA9D0A427751Af201D676719a970857b'
     ports:
       # expose the service to the host for getting the contract addrs
       - ${DEPLOYER_PORT:-8080}:8081
@@ -44,7 +45,7 @@ services:
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile
-    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    image: mantlenetworkio/l2geth:${DOCKER_TAG_L2GETH:-latest}
     # override with the geth script and the env vars required for it
     entrypoint: sh ./geth.sh
     env_file:
@@ -63,7 +64,6 @@ services:
       # no need to keep this secret, only used internally to sign blocks
       BLOCK_SIGNER_KEY: '6587ae678cf4fc9a33000cdbf9f35226b71dcc6a4684a31203241f9bcfd55d27'
       BLOCK_SIGNER_ADDRESS: '0x00000398232E2064F896018496b4b44b3D62751F'
-
       ROLLUP_ENFORCE_FEES: ${ROLLUP_ENFORCE_FEES:-true}
       ROLLUP_FEE_THRESHOLD_DOWN: 0.9
       ROLLUP_FEE_THRESHOLD_UP: 1.1
@@ -80,7 +80,7 @@ services:
       context: ..
       dockerfile: ./ops/docker/Dockerfile.packages
       target: data-transport-layer
-    image: ethereumbitnetwork/data-transport-layer:${DOCKER_TAG_DATA_TRANSPORT_LAYER:-latest}
+    image: mantlenetworkio/data-transport-layer:${DOCKER_TAG_DATA_TRANSPORT_LAYER:-latest}
     # override with the dtl script and the env vars required for it
     entrypoint: ./dtl.sh
     env_file:
@@ -105,7 +105,7 @@ services:
     build:
       context: ..
       dockerfile: ./gas-oracle/Dockerfile
-    image: ethereumbitnetwork/gas-oracle:${DOCKER_TAG_GAS_ORACLE:-latest}
+    image: mantlenetworkio/gas-oracle:${DOCKER_TAG_GAS_ORACLE:-latest}
     restart: on-failure
     environment:
       GAS_PRICE_ORACLE_ETHEREUM_HTTP_URL: https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp
@@ -125,7 +125,7 @@ services:
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile
-    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    image: mantlenetworkio/l2geth:${DOCKER_TAG_L2GETH:-latest}
     entrypoint: sh ./geth.sh
     restart: on-failure
     env_file:
@@ -154,7 +154,7 @@ services:
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile
-    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    image: mantlenetworkio/l2geth:${DOCKER_TAG_L2GETH:-latest}
     entrypoint: sh ./geth.sh
     env_file:
       - ./haenvs/az0/geth.env
@@ -182,7 +182,7 @@ services:
       context: ..
       dockerfile: ./ops/docker/Dockerfile.packages
       target: fault-detector
-    image: ethereumbitnetwork/fault-detector:${DOCKER_TAG_FAULT_DETECTOR:-latest}
+    image: mantlenetworkio/fault-detector:${DOCKER_TAG_FAULT_DETECTOR:-latest}
     restart: on-failure
     entrypoint: ./detector.sh
     environment:
@@ -202,7 +202,7 @@ services:
       context: ..
       dockerfile: ./ops/docker/Dockerfile.packages
       target: replica-healthcheck
-    image: ethereumbitnetwork/replica-healthcheck:${DOCKER_TAG_REPLICA_HEALTHCHECK:-latest}
+    image: mantlenetworkio/replica-healthcheck:${DOCKER_TAG_REPLICA_HEALTHCHECK:-latest}
     restart: on-failure
     environment:
       HEALTHCHECK__REFERENCE_RPC_PROVIDER: http://l2geth:8545
@@ -220,7 +220,7 @@ services:
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile
-    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    image: mantlenetworkio/l2geth:${DOCKER_TAG_L2GETH:-latest}
     entrypoint: sh ./geth.sh
     restart: on-failure
     env_file:
@@ -249,7 +249,7 @@ services:
       context: ..
       dockerfile: ./ops/docker/Dockerfile.packages
       target: data-transport-layer
-    image: ethereumbitnetwork/data-transport-layer:${DOCKER_TAG_DATA_TRANSPORT_LAYER:-latest}
+    image: mantlenetworkio/data-transport-layer:${DOCKER_TAG_DATA_TRANSPORT_LAYER:-latest}
     # override with the dtl script and the env vars required for it
     entrypoint: ./dtl.sh
     env_file:

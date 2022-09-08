@@ -10,7 +10,7 @@ services:
     build:
       context: ..
       dockerfile: ./l2geth/Dockerfile
-    image: ethereumbitnetwork/l2geth:${DOCKER_TAG_L2GETH:-latest}
+    image: mantlenetworkio/l2geth:${DOCKER_TAG_L2GETH:-latest}
     # override with the geth script and the env vars required for it
     entrypoint: sh ./geth.sh
     env_file:
